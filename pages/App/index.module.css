@@ -1,0 +1,61 @@
+main {
+  background: linear-gradient(135deg, #d0e9fb, #FFF);
+  margin: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h4 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #333;
+  padding: 20px;
+}
+
+.semi-form-field {
+  margin-bottom: 15px;
+}
+
+.semi-form-field input,
+.semi-form-field select {
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.semi-form-field input:focus,
+.semi-form-field select:focus {
+  outline: none;
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.semi-button {
+  margin-top: 30px;
+  width: 100%;
+  padding-top: 30px;
+  border-radius: 10px;
+  background-color: #007BFF;
+  color: #FFF;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.semi-button:hover {
+  background-color: #0056b3;
+}
+
+p {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
