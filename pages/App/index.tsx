@@ -1,14 +1,13 @@
-'use client';
-import { bitable, ITableMeta, ITextField } from "@lark-base-open/js-sdk";
+import { FormApi } from '@douyinfe/semi-ui/lib/es/form'; // Import kiểu FormApi
+import { bitable, ITableMeta } from "@lark-base-open/js-sdk";
 import { Button, Form } from '@douyinfe/semi-ui';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import HttpService from '../api/fetchFacebookAdsData';
 import { addDataToTable } from '../api/addDataToTable';
-// import './index.module.css';
 
 export default function App() {
   const [tableMetaList, setTableMetaList] = useState<ITableMeta[]>();
-  const formApi = useRef();
+  const formApi = useRef<FormApi | null>(null); // Định nghĩa kiểu cho formApi
   const [status, setStatus] = useState('');
   const [fbData, setFbData] = useState<any[]>([]);
 
@@ -35,13 +34,17 @@ export default function App() {
       setStatus(result);
 
     } catch (error) {
-      setStatus(`Error: ${error.message}`);
+      if (error instanceof Error) {
+        setStatus(`Error: ${error.message}`);
+      } else {
+        setStatus("An unknown error occurred");
+      }
     }
   };
 
   useEffect(() => {
-    Promise.all([bitable.base.getTableMetaList()])
-      .then(([metaList]) => {
+    bitable.base.getTableMetaList()
+      .then(metaList => {
         setTableMetaList(metaList);
       })
       .catch(error => {
@@ -52,15 +55,10 @@ export default function App() {
   return (
     <main>
       <h4>Fetch Facebook Ads Data and Add to Lark Base</h4>
-      <img
-        src="https://substackcdn.com/image/fetch/w_96,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fdc15a399-a7af-4af8-8438-86d7579d298b_400x400.png"
-        alt="Logo"
-        className="top-right-image"
-      />
       <Form
         labelPosition='top'
         onSubmit={fetchAndAddData}
-        getFormApi={(api) => (formApi.current = api)}
+        getFormApi={(api) => (formApi.current = api)}  // Gán api cho formApi
       >
         <Form.Input field='access_token' label='Access Token' required />
         <Form.Input field='account_id' label='Account ID' required />

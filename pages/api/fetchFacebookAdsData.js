@@ -1,4 +1,3 @@
-// pages/api/fetchFacebookAdsData.js
 import axios from 'axios';
 
 class HttpService {
@@ -22,4 +21,7 @@ class HttpService {
     }
   }
 }
-export default new HttpService();
+
+// Đặt tên cho instance trước khi export
+const httpService = new HttpService();
+export default httpService;

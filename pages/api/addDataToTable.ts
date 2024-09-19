@@ -1,5 +1,5 @@
 // api/addDataToTable.ts
-import { bitable, ITableMeta, ITextField, IRecordField, INumberField } from "@lark-base-open/js-sdk";
+import { bitable, ITextField, INumberField } from "@lark-base-open/js-sdk";
 
 // Define the type of Facebook Ads data
 interface IFacebookAdRecord {
@@ -59,32 +59,36 @@ export const addDataToTable = async (tableId: string, fbData: IFacebookAdRecord[
     for (const record of fbData) {
       await table.addRecord({
         fields: {
-          [dateStartField.id]: record.date_start,
+          [dateStartField.id]: record.date_start.toString(),
           [accountIdField.id]: record.account_id,
           [campaignIdField.id]: record.campaign_id,
           [campaignNameField.id]: record.campaign_name,
           [objectiveField.id]: record.objective,
-          [reachField.id]: parseFloat(record.reach),
-          [impressionsField.id]: parseFloat(record.impressions),
-          [frequencyField.id]: parseFloat(record.frequency),
-          [spendField.id]: parseFloat(record.spend),
-          [clicksField.id]: parseFloat(record.clicks),
-          [websiteCtrField.id]: parseFloat(record.website_ctr),
-          [cpcField.id]: parseFloat(record.cpc),
-          [ctrField.id]: parseFloat(record.ctr),
-          [cpmField.id]: parseFloat(record.cpm),
-          [cppField.id]: parseFloat(record.cpp),
-          [conversionsField.id]: record.conversions,
-          [conversionValuesField.id]: record.conversion_values,
-          [videoThruplayWatchedActionsField.id]: record.video_thruplay_watched_actions,
-          [actionsField.id]: record.actions,
-          [actionValuesField.id]: record.action_values
+          [reachField.id]: parseFloat(record.reach.toString()),
+          [impressionsField.id]: parseFloat(record.impressions.toString()),
+          [frequencyField.id]: parseFloat(record.frequency.toString()),
+          [spendField.id]: parseFloat(record.spend.toString()),
+          [clicksField.id]: parseFloat(record.clicks.toString()),
+          [websiteCtrField.id]: parseFloat(record.website_ctr.toString()),
+          [cpcField.id]: parseFloat(record.cpc.toString()),
+          [ctrField.id]: parseFloat(record.ctr.toString()),
+          [cpmField.id]: parseFloat(record.cpm.toString()),
+          [cppField.id]: parseFloat(record.cpp.toString()),
+          [conversionsField.id]: record.conversions.toString(),
+          [conversionValuesField.id]: record.conversion_values.toString(),
+          [videoThruplayWatchedActionsField.id]: record.video_thruplay_watched_actions.toString(),
+          [actionsField.id]: record.actions.toString(),
+          [actionValuesField.id]: record.action_values.toString()
         }
       });
     }
 
     return 'Records added successfully!';
   } catch (error) {
-    throw new Error(`Error adding data to table: ${error.message}`);
+    if (error instanceof Error) {
+      return `Error: ${error.message}`;
+    } else {
+      return "An unknown error occurred";
+    }
   }
 };
